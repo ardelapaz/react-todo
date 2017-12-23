@@ -16,6 +16,7 @@
 
         song.element.on('click', event => {
             player.playPause(song);
+            $('#time-control .total-time').text(player.getDuration());
             $('button#play-pause').attr('playState', player.playState);
         });
         

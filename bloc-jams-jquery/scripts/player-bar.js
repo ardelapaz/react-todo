@@ -23,21 +23,25 @@
 
         const prevSong = album.songs[prevSongIndex];
         player.playPause(prevSong);
-
-
     });
 
     setInterval( () => {
-        if (player.playerState !== 'playing') { return; }
+        if (player.playState !== 'playing') { return; }
 
         const currentTime = player.getTime();
         const duration = player.getDuration();
         const percent = (currentTime / duration ) * 100;
+        $('#time-control .current-time').text( Math.floor(currentTime) );
         $('#time-control input').val(percent);
-
-
+        $('#time-control .total-time').text(duration);
 
 
     }, 1000);
     
+   $('#time-control input').on('input', function (event) {
+    player.skipTo(event.target.value);
+});
+$('#volume-control input').on('input', function (event) {
+    player.setVolume(event.target.value);
+});
 }
