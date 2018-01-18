@@ -12,7 +12,7 @@ class App extends Component {
         { description: 'Buy new dishes', isCompleted: false }
       ],
       newTodoDescription: '',
-      deleteTodo: '' //??
+      deleteTodo: ''
     };
   }
   handleSubmit(e) {
@@ -31,15 +31,11 @@ class App extends Component {
     todo.isCompleted = todo.isCompleted ? false : true;
     this.setState({ todos: todos });
   }
-  deleteTodo(e) {
-    const todos = this.state.todos.filter(todos=> {
-      return !(todos.props.index) });
-    this.setState({ todos: todos });
-  } //I have no clue if this is needed. I had like 4 different versions of this after watching videos
-  onClick(e) {
-    console.log('fdsafdsab');
-  } //everything crashes and burns without this
 
+  deleteTodo(e) {
+    const todos = this.state.todos.filter( (item, index) => index !== e);
+    this.setState({ todos: todos });
+  }
 
     render() {
       return (
@@ -47,7 +43,6 @@ class App extends Component {
          <ul>
            { this.state.todos.map( (todo, index) => 
             <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index)} deleteTodo = { () => this.deleteTodo(index)} />
-           /*I threw something down in here too I'm pretty sure it's wrong*/
            )}
          </ul>   
          <form onSubmit={ (e) => this.handleSubmit(e) }>
